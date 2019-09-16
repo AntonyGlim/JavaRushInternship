@@ -42,7 +42,7 @@ public class Ship implements Serializable {
     private Double rating; //Рейтинг корабля. Используй математическое округление до сотых.
 
 
-    
+
     /*----------------getters and setters and no arg constructor because no lombok---------------*/
 
     public Ship() {

@@ -1,11 +1,7 @@
 package com.space.service;
 
-import com.space.entities.Ship;
-import org.springframework.beans.factory.annotation.Autowired;
+//import com.space.repository.ShipsRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ShipsService {

@@ -1,7 +1,7 @@
 package com.space.controller;
 
-import com.space.model.Ship;
-import com.space.service.ShipsService;
+import com.space.model.Product;
+import com.space.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,26 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("rest/ships")
-public class ShipsController {
+@RequestMapping("rest/v1/products")
+public class ProductsRestController {
 
-    ShipsService shipsService;
+    ProductsService productsService;
 
     @Autowired
-    public void setShipsService(ShipsService shipsService) {
-        this.shipsService = shipsService;
+    public void setProductsService(ProductsService productsService) {
+        this.productsService = productsService;
     }
 
-    @GetMapping("/123123")
+    //  http://localhost:8080/rest/v1/products/
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
-    public List<Ship> findAll(){
-        return shipsService.findAll();
+    public List<Product> showProducts(){
+        return productsService.findAll();
     }
-
-    @GetMapping("/123123123")
-    @ResponseStatus(HttpStatus.OK)
-    public Ship returnShip(){
-        return new Ship();
-    }
-
 }

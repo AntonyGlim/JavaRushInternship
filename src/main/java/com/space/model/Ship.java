@@ -23,6 +23,7 @@ public class Ship implements Serializable {
     private String planet; //Планета пребывания (до 50 знаков включительно)
 
     @Column(name = "shipType")
+    @Enumerated(EnumType.STRING)
     private ShipType shipType; //Тип корабля
 
     @Column(name = "prodDate")

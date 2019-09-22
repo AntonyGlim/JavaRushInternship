@@ -47,9 +47,15 @@ public class ShipsService {
     }
 
     public Ship updateById(Long id, Ship ship) {
-        findById(id);
-        if (!shipCorrect(ship)) throw new BadRequestException("Cant update ship");
-        return shipsRepository.saveAndFlush(ship);
+        Ship shipFromDB = findById(id);
+        if (shipNameCorrect(ship.getName())) shipFromDB.setName(ship.getName());
+        if (shipPlanetCorrect(ship.getPlanet())) shipFromDB.setPlanet(ship.getPlanet());
+        if (shipTypeCorrect(ship.getShipType())) shipFromDB.setShipType(ship.getShipType());
+        if (shipProdDateCorrect(ship.getProdDate())) shipFromDB.setProdDate(ship.getProdDate());
+        if (shipSpeedCorrect(ship.getSpeed())) shipFromDB.setSpeed(ship.getSpeed());
+        if (shipCrewSizeCorrect(ship.getCrewSize())) shipFromDB.setCrewSize(ship.getCrewSize());
+        shipFromDB.setRating(shipFromDB.rating());
+        return shipsRepository.saveAndFlush(shipFromDB);
     }
 
     public void deleteById(Long id) {

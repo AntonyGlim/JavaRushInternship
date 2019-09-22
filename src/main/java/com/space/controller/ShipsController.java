@@ -93,7 +93,11 @@ public class ShipsController {
         return shipsService.createShip(ship);
     }
 
-
+    @GetMapping("/ships/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Ship getShip(@PathVariable Long id){
+        return shipsService.findById(id);
+    }
 
 
     @GetMapping("/123123123")

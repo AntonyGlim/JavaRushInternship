@@ -1,6 +1,7 @@
 package com.space.service;
 
 import com.space.exceptions.BadRequestException;
+import com.space.exceptions.PageNotFoundException;
 import com.space.model.Ship;
 import com.space.model.ShipType;
 import com.space.repository.ShipsRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShipsService {
@@ -36,6 +38,12 @@ public class ShipsService {
         if (ship.getUsed() == null) ship.setUsed(false); //TODO ship.getUsed().equals("")
         ship.setRating(ship.rating());
         return shipsRepository.saveAndFlush(ship);
+    }
+
+    public Ship findById(Long id) {
+        if (id > Long.MAX_VALUE || id <= 0) throw new BadRequestException("Wrong ID!");
+        Optional<Ship> optionalShip = shipsRepository.findById(id);
+        return optionalShip.orElseThrow(() -> new PageNotFoundException("Ship not found"));
     }
 
 

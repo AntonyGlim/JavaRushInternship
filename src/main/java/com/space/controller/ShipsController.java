@@ -103,7 +103,7 @@ public class ShipsController {
         return shipsService.findById(id);
     }
 
-    //6/11
+    //ALL TESTS PASS!
     @PostMapping("/ships/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Ship updateShip(@PathVariable Long id, @RequestBody Ship ship){

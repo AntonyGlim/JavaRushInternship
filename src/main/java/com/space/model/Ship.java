@@ -40,7 +40,7 @@ public class Ship implements Serializable {
     @Column(name = "rating")
     private Double rating; //Рейтинг корабля. Используй математическое округление до сотых.
 
-    private Double rating(){
+    public Double rating(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(prodDate);
         double v = speed;

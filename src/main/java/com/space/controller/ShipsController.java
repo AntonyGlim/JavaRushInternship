@@ -89,7 +89,7 @@ public class ShipsController {
         return shipsService.findAll(specification).size();
     }
 
-    //6/9
+    //ALL TESTS PASS!
     @PostMapping("/ships")
     @ResponseStatus(HttpStatus.OK)
     public Ship createShip(@RequestBody Ship ship){

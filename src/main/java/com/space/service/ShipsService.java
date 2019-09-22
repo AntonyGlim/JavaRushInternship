@@ -78,14 +78,13 @@ public class ShipsService {
     private boolean shipPlanetCorrect(String planet) {
         return planet != null && !planet.equals("") && planet.length() <= 50;
     }
-
+    //DELETE SOME THING
     private boolean shipTypeCorrect(ShipType shipType) {
-        return shipType != null &&
-                (shipType == ShipType.TRANSPORT || shipType == ShipType.MILITARY || shipType == ShipType.MERCHANT);
+        return shipType == ShipType.TRANSPORT || shipType == ShipType.MILITARY || shipType == ShipType.MERCHANT;
     }
 
     private boolean shipProdDateCorrect(Date prodDate) {
-        return prodDate != null && prodDate.getTime() >= 26192246400000L && prodDate.getTime() >= 33103209600000L;
+        return prodDate != null && prodDate.getTime() >= 26192246400000L && prodDate.getTime() <= 33103209600000L;
     }
 
     private boolean shipSpeedCorrect(Double speed) {

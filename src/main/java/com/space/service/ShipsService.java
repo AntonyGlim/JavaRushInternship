@@ -46,6 +46,11 @@ public class ShipsService {
         return optionalShip.orElseThrow(() -> new PageNotFoundException("Ship not found"));
     }
 
+    public void deleteById(Long id) {
+        findById(id);
+        shipsRepository.deleteById(id);
+    }
+
 
     /*-------------------------------ShipCheck-block-------------------------------*/
     private boolean shipCorrect(Ship ship) {

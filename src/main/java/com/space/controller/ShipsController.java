@@ -99,6 +99,12 @@ public class ShipsController {
         return shipsService.findById(id);
     }
 
+    @DeleteMapping("/ships/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteShip(@PathVariable Long id){
+        shipsService.deleteById(id);
+    }
+
 
     @GetMapping("/123123123")
     @ResponseStatus(HttpStatus.OK)

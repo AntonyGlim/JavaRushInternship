@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,8 +45,16 @@ public class ShipsController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize)
     {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order.getFieldName()));
-        Specification specification = null;
-        System.out.println(shipsService.findAll(specification, pageable).getContent());
+        Specification specification = Specification.where(
+                shipsService.filterByName(name)
+                .and(shipsService.filterByPlanet(planet))
+                .and(shipsService.filterByShipType(shipType))
+                .and(shipsService.filterByProdDate(after, before))
+                .and(shipsService.filterByUsed(isUsed))
+                .and(shipsService.filterBySpeed(minSpeed, maxSpeed))
+                .and(shipsService.filterByCrewSize(minCrewSize, maxCrewSize))
+                .and(shipsService.filterByRating (minRating, maxRating))
+        );
         return shipsService.findAll(specification, pageable).getContent();
     }
 

@@ -41,7 +41,7 @@ public class ShipsController {
             @RequestParam(value = "maxRating", required = false) Double maxRating,
             @RequestParam(value = "order", required = false, defaultValue = "ID") ShipOrder order,
             @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize)
+            @RequestParam(value = "pageSize", required = false, defaultValue = "3") Integer pageSize)
     {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order.getFieldName()));
         Specification<Ship> specification = Specification.where(
@@ -92,16 +92,6 @@ public class ShipsController {
     public Ship createShip(@RequestBody Ship ship){
         return shipsService.createShip(ship);
     }
-
-    //{
-    //“name”:[String],
-    //“planet”:[String],
-    //“shipType”:[ShipType],
-    //“prodDate”:[Long],
-    //“isUsed”:[Boolean], --optional, default=false
-    //“speed”:[Double],
-    //“crewSize”:[Integer]
-    //}
 
 
 

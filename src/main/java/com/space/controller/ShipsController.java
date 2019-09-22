@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,12 +44,12 @@ public class ShipsController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize)
     {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order.getFieldName()));
-        Specification specification = Specification.where(
+        Specification<Ship> specification = Specification.where(
                 shipsService.filterByName(name)
                 .and(shipsService.filterByPlanet(planet))
                 .and(shipsService.filterByShipType(shipType))
-                .and(shipsService.filterByProdDate(after, before))
-                .and(shipsService.filterByUsed(isUsed))
+                .and(shipsService.filterByProdDate(before, after))
+                .and(shipsService.filterByIsUsed(isUsed))
                 .and(shipsService.filterBySpeed(minSpeed, maxSpeed))
                 .and(shipsService.filterByCrewSize(minCrewSize, maxCrewSize))
                 .and(shipsService.filterByRating (minRating, maxRating))
@@ -75,12 +74,12 @@ public class ShipsController {
             @RequestParam(value = "maxRating", required = false) Double maxRating)
     {
 
-        Specification specification = Specification.where(
+        Specification<Ship> specification = Specification.where(
                 shipsService.filterByName(name)
                         .and(shipsService.filterByPlanet(planet))
                         .and(shipsService.filterByShipType(shipType))
                         .and(shipsService.filterByProdDate(after, before))
-                        .and(shipsService.filterByUsed(isUsed))
+                        .and(shipsService.filterByIsUsed(isUsed))
                         .and(shipsService.filterBySpeed(minSpeed, maxSpeed))
                         .and(shipsService.filterByCrewSize(minCrewSize, maxCrewSize))
                         .and(shipsService.filterByRating (minRating, maxRating))
@@ -88,12 +87,29 @@ public class ShipsController {
         return shipsService.findAll(specification).size();
     }
 
+    @PostMapping("/ships")
+    @ResponseStatus(HttpStatus.OK)
+    public Ship createShip(@RequestBody Ship ship){
+        return shipsService.createShip(ship);
+    }
+
+    //{
+    //“name”:[String],
+    //“planet”:[String],
+    //“shipType”:[ShipType],
+    //“prodDate”:[Long],
+    //“isUsed”:[Boolean], --optional, default=false
+    //“speed”:[Double],
+    //“crewSize”:[Integer]
+    //}
+
+
 
 
     @GetMapping("/123123123")
     @ResponseStatus(HttpStatus.OK)
-    public Ship returnShip(){
-        return new Ship();
+    public List<Ship> returnShip(){
+        return shipsService.findAll(null);
     }
 
 }

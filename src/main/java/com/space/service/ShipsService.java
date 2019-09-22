@@ -30,7 +30,12 @@ public class ShipsService {
         return shipsRepository.findAll(specification);
     }
 
+    public Ship createShip(Ship ship) {
+        return shipsRepository.saveAndFlush(ship);
+    }
 
+
+    /*-------------------------------filters-block-------------------------------*/
     public Specification<Ship> filterByName(String name) {
         return (Specification<Ship>) (root, query, criteriaBuilder) ->
                 name == null ? null : criteriaBuilder.like(root.get("name"), "%" + name + "%");
@@ -108,6 +113,8 @@ public class ShipsService {
             return criteriaBuilder.isFalse(root.get("isUsed"));
         };
     }
+    /*-------------------------------filters-block-end-------------------------------*/
+
 
 
 }

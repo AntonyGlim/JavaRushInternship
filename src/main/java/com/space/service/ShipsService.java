@@ -1,5 +1,6 @@
 package com.space.service;
 
+import com.space.exceptions.BadRequestException;
 import com.space.model.Ship;
 import com.space.model.ShipType;
 import com.space.repository.ShipsRepository;
@@ -31,8 +32,49 @@ public class ShipsService {
     }
 
     public Ship createShip(Ship ship) {
+        if (!shipCorrect(ship)) throw new BadRequestException("Cant create ship");
         return shipsRepository.saveAndFlush(ship);
     }
+
+
+    /*-------------------------------ShipCheck-block-------------------------------*/
+    private boolean shipCorrect(Ship ship) {
+        return (
+                ship != null &&
+                shipNameCorrect(ship.getName()) &&
+                shipPlanetCorrect(ship.getPlanet()) &&
+                shipTypeCorrect(ship.getShipType()) &&
+                shipProdDateCorrect(ship.getProdDate()) &&
+                shipSpeedCorrect(ship.getSpeed()) &&
+                shipCrewSizeCorrect(ship.getCrewSize())
+        );
+    }
+
+    private boolean shipNameCorrect(String name) {
+        return name != null && !name.equals("") && name.length() <= 50;
+    }
+
+    private boolean shipPlanetCorrect(String planet) {
+        return planet != null && !planet.equals("") && planet.length() <= 50;
+    }
+
+    private boolean shipTypeCorrect(ShipType shipType) {
+        return shipType != null &&
+                (shipType == ShipType.TRANSPORT || shipType == ShipType.MILITARY || shipType == ShipType.MERCHANT);
+    }
+
+    private boolean shipProdDateCorrect(Date prodDate) {
+        return prodDate != null && prodDate.getTime() >= 26192246400L && prodDate.getTime() >= 33103209600L; //TODO * 1000?
+    }
+
+    private boolean shipSpeedCorrect(Double speed) {
+        return speed != null && speed >= 0.01d && speed <= 0.99d;
+    }
+
+    private boolean shipCrewSizeCorrect(Integer crewSize) {
+        return crewSize != null && crewSize >= 1 && crewSize <= 9999;
+    }
+    /*-------------------------------ShipCheck-block-end-------------------------------*/
 
 
     /*-------------------------------filters-block-------------------------------*/

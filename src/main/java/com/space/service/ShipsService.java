@@ -4,6 +4,9 @@ package com.space.service;
 import com.space.model.Ship;
 import com.space.repository.ShipsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +15,6 @@ import java.util.List;
 @Service
 public class ShipsService {
 
-
     private ShipsRepository shipsRepository;
 
     @Autowired
@@ -20,9 +22,7 @@ public class ShipsService {
         this.shipsRepository = shipsRepository;
     }
 
-    public List<Ship> findAll() {
-        List<Ship> list = new ArrayList<>();
-        shipsRepository.findAll().forEach(list::add);
-        return list;
+    public Page<Ship> findAll(Specification<Ship> specification, Pageable pageable) {
+        return shipsRepository.findAll(specification, pageable);
     }
 }

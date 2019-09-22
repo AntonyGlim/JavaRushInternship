@@ -4,11 +4,12 @@ import com.space.model.Ship;
 import com.space.model.ShipType;
 import com.space.service.ShipsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -42,7 +43,10 @@ public class ShipsController {
             @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize)
     {
-        return shipsService.findAll();
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order.getFieldName()));
+        Specification specification = null;
+        System.out.println(shipsService.findAll(specification, pageable).getContent());
+        return shipsService.findAll(specification, pageable).getContent();
     }
 
 

@@ -46,6 +46,12 @@ public class ShipsService {
         return optionalShip.orElseThrow(() -> new PageNotFoundException("Ship not found"));
     }
 
+    public Ship updateById(Long id, Ship ship) {
+        findById(id);
+        if (!shipCorrect(ship)) throw new BadRequestException("Cant update ship");
+        return shipsRepository.saveAndFlush(ship);
+    }
+
     public void deleteById(Long id) {
         findById(id);
         shipsRepository.deleteById(id);

@@ -99,6 +99,12 @@ public class ShipsController {
         return shipsService.findById(id);
     }
 
+    @PostMapping("/ships/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Ship updateShip(@PathVariable Long id, @RequestBody Ship ship){
+        return shipsService.updateById(id, ship);
+    }
+
     @DeleteMapping("/ships/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteShip(@PathVariable Long id){

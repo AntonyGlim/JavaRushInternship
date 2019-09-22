@@ -24,6 +24,7 @@ public class ShipsController {
         this.shipsService = shipsService;
     }
 
+    // 8/10
     @GetMapping("/ships")
     @ResponseStatus(HttpStatus.OK)
     public List<Ship> findAll(
@@ -57,6 +58,7 @@ public class ShipsController {
         return shipsService.findAll(specification, pageable).getContent();
     }
 
+    //ALL TESTS PASS!
     @GetMapping("/ships/count")
     @ResponseStatus(HttpStatus.OK)
     public Integer shipsCount(
@@ -87,35 +89,32 @@ public class ShipsController {
         return shipsService.findAll(specification).size();
     }
 
+    //6/9
     @PostMapping("/ships")
     @ResponseStatus(HttpStatus.OK)
     public Ship createShip(@RequestBody Ship ship){
         return shipsService.createShip(ship);
     }
 
+    //ALL TESTS PASS!
     @GetMapping("/ships/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Ship getShip(@PathVariable Long id){
         return shipsService.findById(id);
     }
 
+    //6/11
     @PostMapping("/ships/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Ship updateShip(@PathVariable Long id, @RequestBody Ship ship){
         return shipsService.updateById(id, ship);
     }
 
+    //ALL TESTS PASS!
     @DeleteMapping("/ships/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteShip(@PathVariable Long id){
         shipsService.deleteById(id);
-    }
-
-
-    @GetMapping("/123123123")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Ship> returnShip(){
-        return shipsService.findAll(null);
     }
 
 }

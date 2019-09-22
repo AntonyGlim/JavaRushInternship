@@ -33,6 +33,8 @@ public class ShipsService {
 
     public Ship createShip(Ship ship) {
         if (!shipCorrect(ship)) throw new BadRequestException("Cant create ship");
+        if (ship.getUsed() == null) ship.setUsed(false); //TODO ship.getUsed().equals("")
+        ship.setRating(ship.rating());
         return shipsRepository.saveAndFlush(ship);
     }
 

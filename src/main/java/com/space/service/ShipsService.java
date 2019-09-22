@@ -49,11 +49,17 @@ public class ShipsService {
     public Ship updateById(Long id, Ship ship) {
         Ship shipFromDB = findById(id);
         if (shipNameCorrect(ship.getName())) shipFromDB.setName(ship.getName());
+        if (ship.getName() != null && ship.getName().equals("")) throw new BadRequestException("Invalid name!"); //TODO transfer to check block
         if (shipPlanetCorrect(ship.getPlanet())) shipFromDB.setPlanet(ship.getPlanet());
+        else if (ship.getShipType() != null && ship.getPlanet().equals("")) throw new BadRequestException("Invalid planet!");
         if (shipTypeCorrect(ship.getShipType())) shipFromDB.setShipType(ship.getShipType());
+        else if (ship.getShipType() != null) throw new BadRequestException("Invalid shipType!");
         if (shipProdDateCorrect(ship.getProdDate())) shipFromDB.setProdDate(ship.getProdDate());
+        else if (ship.getProdDate() != null) throw new BadRequestException("Invalid date!");
         if (shipSpeedCorrect(ship.getSpeed())) shipFromDB.setSpeed(ship.getSpeed());
+        else if (ship.getSpeed() != null) throw new BadRequestException("Invalid speed!");
         if (shipCrewSizeCorrect(ship.getCrewSize())) shipFromDB.setCrewSize(ship.getCrewSize());
+        else if (ship.getCrewSize() != null) throw new BadRequestException("Invalid crewSize!");
         shipFromDB.setRating(shipFromDB.rating());
         return shipsRepository.saveAndFlush(shipFromDB);
     }

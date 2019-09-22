@@ -66,7 +66,7 @@ public class ShipsService {
     }
 
     private boolean shipProdDateCorrect(Date prodDate) {
-        return prodDate != null && prodDate.getTime() >= 26192246400L && prodDate.getTime() >= 33103209600L; //TODO * 1000?
+        return prodDate != null && prodDate.getTime() >= 26192246400000L && prodDate.getTime() >= 33103209600000L;
     }
 
     private boolean shipSpeedCorrect(Double speed) {

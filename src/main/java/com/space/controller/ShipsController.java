@@ -24,10 +24,10 @@ public class ShipsController {
         this.shipsService = shipsService;
     }
 
-    // 8/10
+    //ALL TESTS PASS!
     @GetMapping("/ships")
     @ResponseStatus(HttpStatus.OK)
-    public List<Ship> findAll(
+    public List<Ship> getShipsList(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "planet", required = false) String planet,
             @RequestParam(value = "shipType", required = false) ShipType shipType,
@@ -49,7 +49,7 @@ public class ShipsController {
                 shipsService.filterByName(name)
                 .and(shipsService.filterByPlanet(planet))
                 .and(shipsService.filterByShipType(shipType))
-                .and(shipsService.filterByProdDate(before, after))
+                .and(shipsService.filterByProdDate(after, before))
                 .and(shipsService.filterByIsUsed(isUsed))
                 .and(shipsService.filterBySpeed(minSpeed, maxSpeed))
                 .and(shipsService.filterByCrewSize(minCrewSize, maxCrewSize))

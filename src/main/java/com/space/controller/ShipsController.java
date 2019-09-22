@@ -58,6 +58,36 @@ public class ShipsController {
         return shipsService.findAll(specification, pageable).getContent();
     }
 
+    @GetMapping("/ships/count")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer shipsCount(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "planet", required = false) String planet,
+            @RequestParam(value = "shipType", required = false) ShipType shipType,
+            @RequestParam(value = "after", required = false) Long after,
+            @RequestParam(value = "before", required = false) Long before,
+            @RequestParam(value = "isUsed", required = false) Boolean isUsed,
+            @RequestParam(value = "minSpeed", required = false) Double minSpeed,
+            @RequestParam(value = "maxSpeed", required = false) Double maxSpeed,
+            @RequestParam(value = "minCrewSize", required = false) Integer minCrewSize,
+            @RequestParam(value = "maxCrewSize", required = false) Integer maxCrewSize,
+            @RequestParam(value = "minRating", required = false) Double minRating,
+            @RequestParam(value = "maxRating", required = false) Double maxRating)
+    {
+
+        Specification specification = Specification.where(
+                shipsService.filterByName(name)
+                        .and(shipsService.filterByPlanet(planet))
+                        .and(shipsService.filterByShipType(shipType))
+                        .and(shipsService.filterByProdDate(after, before))
+                        .and(shipsService.filterByUsed(isUsed))
+                        .and(shipsService.filterBySpeed(minSpeed, maxSpeed))
+                        .and(shipsService.filterByCrewSize(minCrewSize, maxCrewSize))
+                        .and(shipsService.filterByRating (minRating, maxRating))
+        );
+        return shipsService.findAll(specification).size();
+    }
+
 
 
     @GetMapping("/123123123")

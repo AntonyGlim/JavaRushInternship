@@ -2,6 +2,7 @@ package com.space.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -39,7 +40,15 @@ public class Ship implements Serializable {
     @Column(name = "rating")
     private Double rating; //Рейтинг корабля. Используй математическое округление до сотых.
 
-
+    private Double rating(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(prodDate);
+        double v = speed;
+        double k = isUsed ? 0.5d : 1d;
+        long y0 = 3019;
+        long y1 = calendar.get(Calendar.YEAR);
+        return Math.round(((80 * v * k) / (y0 - y1 + 1)) * 100d) / 100d;
+    }
 
     /*----------------getters and setters and no arg constructor because no lombok---------------*/
 

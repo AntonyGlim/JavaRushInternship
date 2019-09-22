@@ -1,7 +1,5 @@
 package com.space.model;
 
-import com.space.model.ShipType;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,10 +15,10 @@ public class Ship implements Serializable {
     @Column(name = "id")
     private Long id; //ID корабля
 
-    @Column(name = "name")
+    @Column(name = "name", length = 50)
     private String name; //Название корабля (до 50 знаков включительно)
 
-    @Column(name = "planet")
+    @Column(name = "planet", length = 50)
     private String planet; //Планета пребывания (до 50 знаков включительно)
 
     @Column(name = "shipType")
@@ -35,7 +33,7 @@ public class Ship implements Serializable {
     @Column(name = "speed")
     private Double speed; //Максимальная скорость корабля. Диапазон значений 0,01..0,99 включительно. Используй математическое округление до сотых.
 
-    @Column(name = "crewSize")
+    @Column(name = "crewSize", nullable = true)
     private Integer crewSize; //Количество членов экипажа. Диапазон значений 1..9999 включительно.
 
     @Column(name = "rating")
@@ -45,8 +43,7 @@ public class Ship implements Serializable {
 
     /*----------------getters and setters and no arg constructor because no lombok---------------*/
 
-    public Ship() {
-    }
+    public Ship() {}
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
